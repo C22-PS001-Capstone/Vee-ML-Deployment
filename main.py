@@ -32,29 +32,31 @@ def predict():
 @app.route("/v2/predict", methods=["GET", "POST"])
 def predict2():
     data = {"success": False, "forecast": []}
-    # try:
-    model = keras.models.load_model("model/v2.h5")
-    scaler = MinMaxScaler()
+    try:
+        model = keras.models.load_model("model/v2.h5")
+        scaler = MinMaxScaler()
 
-    params = flask.request.json
-    if params is None:
-        return flask.jsonify(data)
-    if(params != None):
-        input_data = numpy.array(params.get("data"))
-        input_series = pd.Series(input_data)
-        input_series = input_series.values.reshape(-1, 1)
-        scaler_input_series = scaler.fit_transform(input_series)
-        seq_len = int(len(input_data)/5)
-        input_sequences = to_sequences(scaler_input_series, seq_len)
-        input_sequences = input_sequences[:,-1,:]
+        params = flask.request.json
+        if params is None:
+            return flask.jsonify(data)
+        if(params != None):
+            input_data = numpy.array(params.get("data"))
+            input_series = pd.Series(input_data)
+            input_series = input_series.values.reshape(-1, 1)
+            scaler_input_series = scaler.fit_transform(input_series)
+            seq_len = int(len(input_data)/5)
+            if(len(input_data) < 5):
+                raise Exception("Input data is too short")
+            input_sequences = to_sequences(scaler_input_series, seq_len)
+            input_sequences = input_sequences[:,-1,:]
 
 
-        forecast = model.predict(input_sequences)
-        forecast = scaler.inverse_transform(forecast)
-        data["success"] = True
-        data["forecast"] = list(map(int, forecast.flatten().tolist()))
-    # except:
-        # print("Get exception")
+            forecast = model.predict(input_sequences)
+            forecast = scaler.inverse_transform(forecast)
+            data["success"] = True
+            data["forecast"] = list(map(int, forecast.flatten().tolist()))
+    except:
+        print("Get exception")
     return flask.jsonify(data)
 
 def model_forecast(model, data, window_size):
