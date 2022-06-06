@@ -4,6 +4,7 @@ import numpy
 import tensorflow as tf
 import keras
 import pandas as pd
+import os
 
 app = flask.Flask(__name__)
 WINDOW_SIZE = 60
@@ -35,4 +36,4 @@ def model_forecast(model, data, window_size):
     forecast = model.predict(ds)
     return forecast
 
-app.run(host='0.0.0.0', port=8080, debug=True)
+app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 8080)), debug=True)
