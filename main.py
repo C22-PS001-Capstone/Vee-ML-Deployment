@@ -5,6 +5,7 @@ import tensorflow as tf
 import keras
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
+import os
 
 app = flask.Flask(__name__)
 WINDOW_SIZE = 60
@@ -14,7 +15,7 @@ trainMaxIndex = 876
 def predict():
     data = {"success": False, "forecast": []}
     try:
-        model = keras.models.load_model("data.h5")
+        model = keras.models.load_model("model/data.h5")
             # get request parameters
         params = flask.request.json
         if params is None:
@@ -32,7 +33,7 @@ def predict():
 def predict2():
     data = {"success": False, "forecast": []}
     # try:
-    model = keras.models.load_model("v2.h5")
+    model = keras.models.load_model("model/v2.h5")
     scaler = MinMaxScaler()
 
     params = flask.request.json
@@ -72,4 +73,4 @@ def to_sequences(data, seq_len):
 
     return numpy.array(d)
 
-app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 8080)), debug=True)
+app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 8080)))
