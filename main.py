@@ -23,6 +23,7 @@ def predict():
             input_data = numpy.array(params.get("data"))
             forecast = (model_forecast(model, pd.Series(input_data), WINDOW_SIZE))*100000
             data["success"] = True
+            print('tes')
             data["forecast"] = list(map(int, forecast.flatten().tolist()))
     except:
         print("Get exception")
