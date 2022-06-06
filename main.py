@@ -72,4 +72,4 @@ def to_sequences(data, seq_len):
 
     return numpy.array(d)
 
-app.run(host='0.0.0.0', port=5000, debug=True)
+app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 8080)), debug=True)
