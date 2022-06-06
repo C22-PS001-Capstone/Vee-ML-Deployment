@@ -15,7 +15,7 @@ trainMaxIndex = 876
 def predict():
     data = {"success": False, "forecast": []}
     try:
-        model = keras.models.load_model("model/data.h5")
+        model = keras.models.load_model("model/v1.h5")
             # get request parameters
         params = flask.request.json
         if params is None:
