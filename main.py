@@ -35,4 +35,4 @@ def model_forecast(model, data, window_size):
     forecast = model.predict(ds)
     return forecast
 
-app.run(host='0.0.0.0', port=, debug=True)
+app.run(host='0.0.0.0', port=8080, debug=True)
