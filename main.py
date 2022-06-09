@@ -11,7 +11,7 @@ app = flask.Flask(__name__)
 WINDOW_SIZE = 60
 trainMaxIndex = 876
 
-@app.route("/v1/predict", methods=["GET", "POST"])
+@app.route("/v1/predict", methods=["POST"])
 def predict():
     data = {"success": False, "forecast": []}
     try:
@@ -29,7 +29,7 @@ def predict():
         print("Get exception")
     return flask.jsonify(data)
 
-@app.route("/v2/predict", methods=["GET", "POST"])
+@app.route("/v2/predict", methods=["POST"])
 def predict2():
     data = {"success": False, "forecast": []}
     try:
