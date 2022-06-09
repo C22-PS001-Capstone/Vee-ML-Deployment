@@ -1,5 +1,5 @@
 import flask
-from flask import jsonify
+# from flask import jsonify
 import numpy
 import tensorflow as tf
 import keras
@@ -8,26 +8,26 @@ from sklearn.preprocessing import MinMaxScaler
 import os
 
 app = flask.Flask(__name__)
-WINDOW_SIZE = 60
-trainMaxIndex = 876
+# WINDOW_SIZE = 60
+# trainMaxIndex = 876
 
-@app.route("/v1/predict", methods=["POST"])
-def predict():
-    data = {"success": False, "forecast": []}
-    try:
-        model = keras.models.load_model("model/v1.h5")
-            # get request parameters
-        params = flask.request.json
-        if params is None:
-            return flask.jsonify(data)
-        if(params != None):
-            input_data = numpy.array(params.get("data"))
-            forecast = (model_forecast(model, pd.Series(input_data), WINDOW_SIZE))*100000
-            data["success"] = True
-            data["forecast"] = list(map(int, forecast.flatten().tolist()))
-    except:
-        print("Get exception")
-    return flask.jsonify(data)
+# @app.route("/v1/predict", methods=["POST"])
+# def predict():
+#     data = {"success": False, "forecast": []}
+#     try:
+#         model = keras.models.load_model("model/v1.h5")
+#             # get request parameters
+#         params = flask.request.json
+#         if params is None:
+#             return flask.jsonify(data)
+#         if(params != None):
+#             input_data = numpy.array(params.get("data"))
+#             forecast = (model_forecast(model, pd.Series(input_data), WINDOW_SIZE))*100000
+#             data["success"] = True
+#             data["forecast"] = list(map(int, forecast.flatten().tolist()))
+#     except:
+#         print("Get exception")
+#     return flask.jsonify(data)
 
 @app.route("/v2/predict", methods=["POST"])
 def predict2():
@@ -59,13 +59,13 @@ def predict2():
         print("Get exception")
     return flask.jsonify(data)
 
-def model_forecast(model, data, window_size):
-    ds = tf.data.Dataset.from_tensor_slices(data)
-    ds = ds.window(window_size, shift=1, drop_remainder=True)
-    ds = ds.flat_map(lambda w: w.batch(window_size))
-    ds = ds.batch(32).prefetch(1)
-    forecast = model.predict(ds)
-    return forecast
+# def model_forecast(model, data, window_size):
+#     ds = tf.data.Dataset.from_tensor_slices(data)
+#     ds = ds.window(window_size, shift=1, drop_remainder=True)
+#     ds = ds.flat_map(lambda w: w.batch(window_size))
+#     ds = ds.batch(32).prefetch(1)
+#     forecast = model.predict(ds)
+#     return forecast
 
 def to_sequences(data, seq_len):
     d = []
