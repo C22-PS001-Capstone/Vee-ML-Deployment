@@ -5,10 +5,10 @@ Vee Machine Learning Deployment
 ### dataset
 Dataset folder contain the dataset used for training. This folder also contains the code for generating the dataset.
 
-## model
+### model
 Model folder contain the model used machine learning with format .h5. The model generated from the dataset is stored in this folder.
 
-# notebook
+### notebook
 Notebook folder contain the notebook used for training and generating the model. You can import the notebook on Jupyter Notebook or Google Colab.
 
 ## Minimum Requirements
