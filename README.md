@@ -38,7 +38,7 @@ python3 main.py
 ## Usage
 Predicting the data:
 ```
-curl -H 'Content-Type: application/json' -X PUT -d '{"data": [83000, 70000, 80000, 120000, 300000]}' \
+curl -H 'Content-Type: application/json' -X POST -d '{"data": [83000, 70000, 80000, 120000, 300000]}' \
      http://<YOUR_IP>:8080/v2/predict
 ```
 Example response:
