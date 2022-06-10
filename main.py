@@ -29,7 +29,7 @@ app = flask.Flask(__name__)
 #         print("Get exception")
 #     return flask.jsonify(data)
 
-@app.route("/v2/predict", methods=["GET", "POST"])
+@app.route("/v2/predict", methods=["POST"])
 def predict2():
     data = {"success": False, "forecast": []}
     try:
