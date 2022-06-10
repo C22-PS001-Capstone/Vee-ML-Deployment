@@ -43,8 +43,8 @@ curl -H 'Content-Type: application/json' -X POST -d '{"data": [83000, 70000, 800
 ```
 Example response:
 ```
-    {
-        "forecast":[90767,89717,90525,93743],
-        "success":true
-    }
+{
+    "forecast":[90767,89717,90525,93743],
+    "success":true
+}
 ```
