@@ -1,0 +1,8 @@
+version: "3.9"
+
+services:
+  predict:
+    restart: unless-stopped
+    build: .
+    ports:
+      - "80:80808"
