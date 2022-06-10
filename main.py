@@ -47,16 +47,17 @@ def predict2():
             seq_len = int(len(input_data)/5)
             if(len(input_data) < 5):
                 raise Exception("Input data is too short")
+            if(len(input_data) > 100):
+                seq_len = 100
             input_sequences = to_sequences(scaler_input_series, seq_len)
             input_sequences = input_sequences[:,-1,:]
-
 
             forecast = model.predict(input_sequences)
             forecast = scaler.inverse_transform(forecast)
             data["success"] = True
             data["forecast"] = list(map(int, forecast.flatten().tolist()))
-    except:
-        print("Get exception")
+    except Exception as e:
+        print(e)
     return flask.jsonify(data)
 
 def model_forecast(model, data, window_size):
